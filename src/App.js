@@ -1,24 +1,34 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import NavBar from './Components/NavBar/NavBar';
+import Banner from './Components/Banner/Banner';
+import RowPost from './Components/RowPost/RowPost';
+import axios from 'axios';
+import {action,orginals} from './urls';
+import {BrowserRouter as Router,Route,Routes} from 'react-router-dom'
+import MovieDetail from './Components/MovieDetail/MovieDetail'
+
 
 function App() {
+  const [state,setState]= useState('')
+
   return (
+    <Router>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar/>
+      <Banner/>
+      <Routes>
+        <Route path="/" element={
+          <>
+          <RowPost url={action} title='Netflix Orginals' />
+          <RowPost url={orginals} title='Action' isSmall />
+          </>
+        }/>
+        <Route path="/movie/:id" element={<MovieDetail/>} />
+      </Routes>
+      
     </div>
+    </Router>
   );
 }
 
